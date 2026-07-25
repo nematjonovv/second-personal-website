@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "hero": {
+      "HeroMeta": {
+        "available": "Available for work",
+        "role": "Fullstack Developer",
+        "location": "Tashkent, UZ",
+        "since": "Est. 2019"
+      },
+      "description": "I build <accent>fast, opinionated</accent> fullstack products — from the database schema all the way to the last pixel. React on the front, Node & Postgres on the back, obsession everywhere in between."
+    }
+  }
+}

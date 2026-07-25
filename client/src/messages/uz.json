@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "hero": {
+      "HeroMeta": {
+        "available": "Ish qidiryapman",
+        "role": "Fullstack dasturchi",
+        "location": "Toshkent, O'Z",
+        "since": "2019-yildan beri"
+      },
+      "description": "Men <accent>tez, prinsipial</accent> fullstack mahsulotlar yarataman — ma'lumotlar bazasi sxemasidan tortib eng oxirgi pikselgacha. Frontda React, backda Node & Postgres, orasidagi hamma joyda esa obsessiya."
+    }
+  }
+}
