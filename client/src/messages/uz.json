@@ -8,6 +8,66 @@
         "since": "2019-yildan beri"
       },
       "description": "Men <accent>tez, prinsipial</accent> fullstack mahsulotlar yarataman — ma'lumotlar bazasi sxemasidan tortib eng oxirgi pikselgacha. Frontda React, backda Node & Postgres, orasidagi hamma joyda esa obsessiya."
+    },
+    "selectedWork": {
+      "title": "Tanlangan ishlar",
+      "allProjects": "Barcha loyihalar"
     }
+  },
+  "AboutPage": {
+    "section": "Men haqimda",
+    "experience": "Tajriba",
+    "toolbox": "Asboblar",
+    "now": "Hozir"
+  },
+  "WorkPage": {
+    "section": "Portfolio",
+    "title": "Ishlar",
+    "description": "Yakunlagan ishlarim yilnomasi. Chiroyli ko'ringan qismlari uchun emas, qiyin bo'lgan qismlari uchun tanlangan.",
+    "role": "Rol"
+  },
+  "BlogPage": {
+    "section": "Yozuvlar",
+    "title": "Blog",
+    "description": "Dasturiy ta'minot qurish haqidagi qaydlar — arxitektura qarorlari, o'zim bosgan minalar va ba'zan shunchaki dod.",
+    "empty": "Hozircha bo'sh. Tez orada.",
+    "back": "Barcha yozuvlar",
+    "notFound": "Bunday yozuv topilmadi",
+    "themes": {
+      "architecture": "Arxitektura",
+      "typescript": "TypeScript",
+      "postgres": "Postgres",
+      "frontend": "Frontend",
+      "devops": "DevOps"
+    }
+  },
+  "ContactPage": {
+    "section": "Aloqa",
+    "title": "Gaplashaylik",
+    "description": "Quriladigan mahsulotingiz bormi, jamoaga odam kerakmi, yoki shunchaki <accent>tab yoki bo'shliq</accent> haqida bahslashmoqchimisiz? Pochtam ochiq.",
+    "channels": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "telegram": "Telegram",
+      "phone": "Telefon"
+    }
+  },
+  "Footer": {
+    "tagline": "Shablonsiz, noldan yozilgan",
+    "location": "Toshkent"
+  },
+  "ProjectPage": {
+    "back": "Orqaga",
+    "live": "Jonli",
+    "problem": "Muammo",
+    "solution": "Yechim",
+    "contribution": "Mening hissam",
+    "challenge": "Qiyinchiliklar",
+    "result": "Natijalar",
+    "liveDemo": "Jonli demo",
+    "sourceCode": "Manba kodi",
+    "close": "Yopish",
+    "notFound": "Bunday loyiha topilmadi"
   }
 }

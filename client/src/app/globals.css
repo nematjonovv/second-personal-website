@@ -54,6 +54,10 @@
   --font-mono: var(--font-mono);
 
   --font-display: var(--font-display);
+  /* Archivo — 400..900 oralig'idagi variable font. font-display (Archivo Black)
+     yagona og'irlikda kelgani uchun undan yengilroq matn yozib bo'lmaydi;
+     tavsif paragraflari shu token bilan 600 og'irlikda chiqadi. */
+  --font-body: var(--font-body);
   --font-accent: var(--font-accent);
   --font-mono: var(--font-mono);
   --font-heading: var(--font-mono);
@@ -105,6 +109,75 @@ body {
 ::selection {
   background: var(--electric-blue);
   color: var(--paper);
+}
+
+/* ---- Scrollbar ----------------------------------------------------------
+   Neo-brutalist: yumaloqlanish yo'q, qog'oz yo'lak, qora chegara, ink polzunok,
+   hover'da vermilion. Firefox faqat `scrollbar-color` ni tushunadi — u yerda
+   chegara chiqmaydi, shuning uchun ranglar o'zi yetarli kontrast beradi.
+
+   ⚠️ Qora fonli sahifalar ((project) guruhi) uchun `.scroll-invert` klassi bor,
+   lekin u faqat ichki scroll konteynerlarga qo'yiladi: sahifa scrollbar'i
+   <html> darajasida bo'lgani uchun route'ga qarab o'zgarmaydi. */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) var(--paper);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+  border-left: 2px solid var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  /* Yo'lak bilan polzunok orasida qog'oz rangli tirqish qoladi */
+  border: 3px solid var(--paper);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vermilion);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--vermilion);
+}
+
+/* Ikki o'q kesishgan burchak — qog'oz rangda qolsin */
+::-webkit-scrollbar-corner {
+  background: var(--paper);
+}
+
+/* Gorizontal yo'lakda chegara yuqoridan bo'ladi, chapdan emas */
+::-webkit-scrollbar-track:horizontal {
+  border-left: none;
+  border-top: 2px solid var(--ink);
+}
+
+/* To'q fonli konteynerlar uchun (kod bloklari, loyiha sahifasi galereyasi) */
+.scroll-invert {
+  scrollbar-color: var(--paper) var(--ink);
+}
+
+.scroll-invert::-webkit-scrollbar-track {
+  background: var(--ink);
+  border-color: var(--paper);
+}
+
+.scroll-invert::-webkit-scrollbar-thumb {
+  background: var(--paper);
+  border-color: var(--ink);
+}
+
+.scroll-invert::-webkit-scrollbar-thumb:hover {
+  background: var(--vermilion);
 }
 
 .dark {

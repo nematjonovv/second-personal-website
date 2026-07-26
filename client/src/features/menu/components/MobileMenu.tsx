@@ -16,7 +16,6 @@ export default function MobileMenu() {
   const links = navLinks[locale];
   const [open, setOpen] = useState(false);
 
-  // menu ochiq bo'lganda scroll butunlay to'xtaydi
   useEffect(() => {
     if (!open) return;
 

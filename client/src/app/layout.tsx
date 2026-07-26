@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Archivo_Black, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Archivo, Archivo_Black, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import Header from "../components/Header";
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/shared/providers/QueryProvider";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "400", // Archivo Black yagona og'irlikda keladi
+  weight: "400",
+});
+
+const archivo = Archivo({
+  variable: "--font-body",
+  subsets: ["latin"],
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -37,13 +42,14 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", archivoBlack.variable, instrumentSerif.variable, "font-mono", jetbrainsMono.variable)}
+      className={cn("h-full", "antialiased", archivoBlack.variable, archivo.variable, instrumentSerif.variable, "font-mono", jetbrainsMono.variable)}
     >
       <body className="min-h-full flex flex-col bg-paper">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          {children}
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );

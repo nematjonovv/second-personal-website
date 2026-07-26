@@ -8,6 +8,66 @@
         "since": "Est. 2019"
       },
       "description": "I build <accent>fast, opinionated</accent> fullstack products — from the database schema all the way to the last pixel. React on the front, Node & Postgres on the back, obsession everywhere in between."
+    },
+    "selectedWork": {
+      "title": "Selected work",
+      "allProjects": "All projects"
     }
+  },
+  "AboutPage": {
+    "section": "About",
+    "experience": "Experience",
+    "toolbox": "Toolbox",
+    "now": "Now"
+  },
+  "WorkPage": {
+    "section": "Portfolio",
+    "title": "Work",
+    "description": "A running log of things I've shipped. Selected for the parts that were hard, not just the parts that look nice.",
+    "role": "Role"
+  },
+  "BlogPage": {
+    "section": "Writing",
+    "title": "Blog",
+    "description": "Notes on building software — architecture decisions, footguns I've stepped on, and the occasional rant.",
+    "empty": "Nothing here yet. Soon.",
+    "back": "All posts",
+    "notFound": "Post not found",
+    "themes": {
+      "architecture": "Architecture",
+      "typescript": "TypeScript",
+      "postgres": "Postgres",
+      "frontend": "Frontend",
+      "devops": "DevOps"
+    }
+  },
+  "ContactPage": {
+    "section": "Contact",
+    "title": "Let's talk",
+    "description": "Got a product to build, a team to join, or just want to argue about <accent>tabs vs spaces</accent>? My inbox is open.",
+    "channels": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "telegram": "Telegram",
+      "phone": "Phone"
+    }
+  },
+  "Footer": {
+    "tagline": "Built from scratch, no template",
+    "location": "Tashkent"
+  },
+  "ProjectPage": {
+    "back": "Back",
+    "live": "Live",
+    "problem": "The problem",
+    "solution": "The solution",
+    "contribution": "My contribution",
+    "challenge": "Challenges",
+    "result": "Results",
+    "liveDemo": "Live demo",
+    "sourceCode": "Source code",
+    "close": "Close",
+    "notFound": "Project not found"
   }
 }
