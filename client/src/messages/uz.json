@@ -18,7 +18,11 @@
     "section": "Men haqimda",
     "experience": "Tajriba",
     "toolbox": "Asboblar",
-    "now": "Hozir"
+    "now": "Hozir",
+    "meta": {
+      "title": "Men haqimda - Hikmatillo Nematjonov",
+      "description": "Frontend dasturchi haqida — tajriba, texnologiyalar va loyihalar"
+    }
   },
   "WorkPage": {
     "section": "Portfolio",
@@ -69,5 +73,22 @@
     "sourceCode": "Manba kodi",
     "close": "Yopish",
     "notFound": "Bunday loyiha topilmadi"
+  },
+  "RootMeta": {
+    "title": "Hikmatillo Nematjonov - Fullstack Dasturchi",
+    "description": "Frontend yo'nalishida ixtisoslashgan fullstack dasturchi. React, Next.js va TypeScript yordamida zamonaviy veb-ilovalar yarataman.",
+    "keywords": "Hikmatillo Nematjonov,frontend dasturchi,React dasturchi,Next.js,fullstack dasturchi,web dasturchi,portfolio"
+  },
+  "BlogMeta": {
+    "title": "Blog",
+    "description": "Dasturiy ta'minot qurish bo'yicha yozувлар - arxitektura qarorlari, xatoliklar va tajriba."
+  },
+  "ContactMeta": {
+    "title": "Bog'lanish",
+    "description": "Loyihangiz bormi yoki jamoaga dasturchi kerakmi? Bog'laning - muammoingiz haqida gaplashamiz."
+  },
+  "WorkMeta": {
+    "title": "Loyihalar",
+    "description": "Men qurgan loyihalar — CRM, ERP va veb ilovalar."
   }
 }

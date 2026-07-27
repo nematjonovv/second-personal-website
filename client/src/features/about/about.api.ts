@@ -48,3 +48,15 @@ export const aboutApi = {
     await api.delete(`/api/about/toolbox/${id}`);
   },
 };
+
+
+const API_BASE_URL = process.env.API_BASE_URL;
+
+export async function getAboutServer(): Promise<About> {
+  const res = await fetch(`${API_BASE_URL}/api/about`, {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch about");
+  const json = await res.json();
+  return json.data;
+}

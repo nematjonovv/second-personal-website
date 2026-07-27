@@ -31,3 +31,25 @@ export const blogApi = {
     await api.delete(`/api/blog/${slug}`);
   },
 };
+
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export async function getAllPostsServer(): Promise<BlogPost[]> {
+  const res = await fetch(`${API_BASE_URL}/api/blog`, {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch posts");
+  const json = await res.json()
+  return json.data;
+}
+
+export async function getPostBySlugServer(slug: string): Promise<BlogPost | null> {
+  const res = await fetch(`${API_BASE_URL}/api/blog/${slug}`, {
+    next: { revalidate: 3600 },
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("Failed to fetch post");
+  const json = await res.json()
+  return json.data;
+}

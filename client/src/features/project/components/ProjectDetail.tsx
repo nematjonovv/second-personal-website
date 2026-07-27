@@ -4,46 +4,18 @@ import { ArrowUpRight, Check, MoveRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Container from "@/components/Container";
 import { imageUrl } from "@/shared/api/imageUrl";
-import { useProject } from "../project.hook";
-import type { Locale } from "../project.type";
+import type { Locale, Project } from "../project.type";
 import BackButton from "./BackButton";
 import ProjectGallery from "./ProjectGallery";
 import ProjectSection from "./ProjectSection";
 
 const PARAGRAPH = "font-mono text-sm leading-relaxed md:text-base";
 
-export default function ProjectDetail({ slug }: { slug: string }) {
+export default function ProjectDetail({ project }: { project: Project }) {
+  console.log(project);
+  
   const locale = useLocale() as Locale;
   const t = useTranslations("ProjectPage");
-  const { data: project, isPending } = useProject(slug);
-
-  if (isPending) {
-    return (
-      <Container>
-        <div className="py-24">
-          <div className="h-8 w-32 animate-pulse rounded-full bg-paper/10" />
-          <div className="mt-10 h-24 w-2/3 animate-pulse bg-paper/10" />
-          <div className="mt-10 h-56 max-h-[50svh] w-full animate-pulse bg-paper/5 md:h-96" />
-        </div>
-      </Container>
-    );
-  }
-
-  if (!project) {
-    return (
-      <Container>
-        <div className="flex min-h-svh flex-col items-start justify-center gap-8 py-24">
-          <h1
-            className="font-display uppercase"
-            style={{ fontSize: "clamp(2rem, 7vw, 4.5rem)", lineHeight: 0.85 }}
-          >
-            {t("notFound")}
-          </h1>
-          <BackButton label={t("back")} />
-        </div>
-      </Container>
-    );
-  }
 
   const content = project.content[locale] ?? project.content.uz;
   const month = new Intl.DateTimeFormat(locale === "uz" ? "uz-UZ" : "en-US", {
@@ -172,6 +144,6 @@ export default function ProjectDetail({ slug }: { slug: string }) {
           </div>
         )}
       </Container>
-    </article>
+    </article >
   );
 }

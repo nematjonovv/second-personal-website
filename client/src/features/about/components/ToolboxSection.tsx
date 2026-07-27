@@ -1,16 +1,14 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import type { Locale, ToolboxGroup } from "../about.type";
 
-export default function ToolboxSection({
+export default async function ToolboxSection({
   groups,
   locale,
 }: {
   groups: ToolboxGroup[];
   locale: Locale;
 }) {
-  const t = useTranslations("AboutPage");
+  const t = await getTranslations("AboutPage");
 
   return (
     <section className="pt-20 md:pt-28">

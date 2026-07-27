@@ -3,33 +3,15 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Container from "@/components/Container";
-import { useBlogPosts } from "../blog.hook";
+import type { BlogPost } from "../blog.type";
 import BlogListItem from "./BlogListItem";
 
 const EASE = [0.2, 0.8, 0.2, 1] as const;
-const SKELETON_COUNT = 4;
 
-export default function BlogList() {
+export default function BlogList({ posts }: { posts: BlogPost[] }) {
   const t = useTranslations("BlogPage");
-  const { data, isPending } = useBlogPosts();
-
-  if (isPending) {
-    return (
-      <Container>
-        <div className="border-t-2 border-ink">
-          {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
-            <div
-              key={i}
-              className="h-32 animate-pulse border-b-2 border-ink bg-ink/5 md:h-40"
-            />
-          ))}
-        </div>
-      </Container>
-    );
-  }
-
-  const posts = data ?? [];
-
+  console.log(posts);
+  
   return (
     <Container>
       {posts.length === 0 ? (
@@ -38,7 +20,7 @@ export default function BlogList() {
         </p>
       ) : (
         <ul className="border-t-2 border-ink">
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <motion.li
               key={post.slug}
               initial={{ opacity: 0, y: 24 }}

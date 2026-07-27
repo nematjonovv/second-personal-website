@@ -58,3 +58,27 @@ export const projectApi = {
     await api.delete(`/api/projects/${slug}`);
   },
 };
+
+
+
+const API_BASE_URL = process.env.API_BASE_URL!;
+
+
+export async function getAllProjectsServer(): Promise<Project[]> {
+  const res = await fetch(`${API_BASE_URL}/api/projects`, {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch projects");
+  const json = await res.json()
+  return json.data;
+}
+
+export async function getProjectBySlugServer(slug: string): Promise<Project | null> {
+  const res = await fetch(`${API_BASE_URL}/api/projects/${slug}`, {
+    next: { revalidate: 3600 },
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("Failed to fetch project");
+  const json = await res.json()
+  return json.data;
+}

@@ -1,16 +1,14 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import type { Experience, Locale } from "../about.type";
 
-export default function ExperienceSection({
+export default async function ExperienceSection({
   items,
   locale,
 }: {
   items: Experience[];
   locale: Locale;
 }) {
-  const t = useTranslations("AboutPage");
+  const t = await getTranslations("AboutPage");
 
   return (
     <section className="pt-20 md:pt-28">
