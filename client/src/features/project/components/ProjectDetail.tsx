@@ -3,6 +3,7 @@
 import { ArrowUpRight, Check, MoveRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Container from "@/components/Container";
+import { imageUrl } from "@/shared/api/imageUrl";
 import { useProject } from "../project.hook";
 import type { Locale } from "../project.type";
 import BackButton from "./BackButton";
@@ -87,7 +88,7 @@ export default function ProjectDetail({ slug }: { slug: string }) {
         </p>
 
         <div className="mt-12">
-          <ProjectGallery images={project.gallery} title={project.title} />
+          <ProjectGallery images={project.gallery.map(imageUrl)} title={project.title} />
         </div>
 
         <div className="mt-16 h-0.5 bg-paper/20" />

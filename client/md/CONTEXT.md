@@ -58,13 +58,14 @@ src/
 
 ## Route guruhlari — Header/Footer'ni boshqarish
 
-Root `layout.tsx` da **Header ham, Footer ham yo'q** — u faqat `<html>`, fontlar va provider'lar. Chrome uchta route guruhiga bo'lingan:
+Root `layout.tsx` da **Header ham, Footer ham yo'q** — u faqat `<html>`, fontlar va provider'lar. Chrome to'rtta route guruhiga bo'lingan:
 
 | Guruh | Layout | Route'lar |
 |---|---|---|
 | `(site)` | `<Header />` + `<main className="flex-1">` + `<Footer />` | `/`, `/work`, `/blog`, `/about`, `/contact` |
 | `(project)` | `min-h-svh bg-[#1A1A1A] text-paper`, chrome yo'q | `/work/[slug]` |
 | `(post)` | `min-h-svh`, chrome yo'q, fon qog'oz rangda qoladi | `/blog/[slug]` |
+| `(admin)` | `AuthProvider` → `ToastProvider` → `AdminGate` → `AdminNav`, sayt Header/Footer'isiz | `/admin/**` |
 
 Ya'ni **ikkala batafsil sahifa ham to'liq ekranli**, undan chiqish faqat sahifadagi "Orqaga" tugmasi orqali. Farqi rangda: loyiha sahifasi teskari rangda (galereya uchun), blog yozuvi esa qog'oz fonda qoladi — uzun matnni to'q fonda o'qish charchatadi.
 
@@ -74,14 +75,29 @@ Ya'ni **ikkala batafsil sahifa ham to'liq ekranli**, undan chiqish faqat sahifad
 
 ## Data oqimi
 
-Loyihada **hali backend yo'q**, lekin kod xuddi bor kabi yozilgan. Komponent hech qachon data massivini to'g'ridan-to'g'ri import qilmaydi:
+Backend ulangan (`../server`, Express + Prisma). Komponent hech qachon data'ni to'g'ridan-to'g'ri import qilmaydi:
 
 ```
-*.data.ts  →  *.api.ts  →  *.hook.ts  →  komponent
- (fake)       (async)      (useQuery)
+backend  →  shared/api/client.ts  →  *.api.ts  →  *.hook.ts  →  komponent
+             (axios + interceptor)   (endpoint)   (useQuery)
 ```
 
-Backend ulanganda **faqat `*.api.ts`** o'zgaradi — funksiya ichidagi `return data` o'rniga `fetch` yoziladi. Hook, komponent va type'larga tegilmaydi.
+`*.data.ts` fake fayllari **o'chirilgan** — faqat `menu`, `stats` va `marquee` statik bo'lib qoldi.
+
+### `shared/api`
+
+| Fayl | Vazifasi |
+|---|---|
+| `client.ts` | axios instance, `API_BASE_URL`, `ApiError`, tiplangan `api.get/post/patch/delete` |
+| `token.ts` | localStorage kaliti, `auth:change` eventi, `subscribeToken` |
+| `types.ts` | `ApiResponse<T>` |
+| `imageUrl.ts` | `/uploads/...` → backend manzili |
+
+Backend javobi doim `{ success, message, data }` — qobiq `client.ts` da ochiladi, chaqiruvchi toza `T` oladi. Interceptorlar: har so'rovga `Bearer` token qo'shadi; **401** da tokenni tozalaydi (admin login formasiga qaytadi); xato xabarini backenddan olib `Error.message` ga chiqaradi — UI o'z matnini yozmaydi, backend xabari o'zbekcha keladi.
+
+⚠️ `NEXT_PUBLIC_API_URL` — `.env.local` da (namuna `.env.example` da). Berilmasa `http://localhost:4000`.
+
+⚠️ 4xx javoblarda React Query qayta urinmaydi (`QueryProvider` dagi `retry`) — aks holda 404 uch marta so'ralib, "topilmadi" kech chiqadi.
 
 | Feature | API | Hook | Query key |
 |---|---|---|---|
@@ -90,7 +106,9 @@ Backend ulanganda **faqat `*.api.ts`** o'zgaradi — funksiya ichidagi `return d
 | `about` | `aboutApi.get()` | `useAbout()` | `["about"]` |
 | `contact` | `contactApi.get()` | `useContact()` | `["contact"]` |
 
-**`about` uchun bitta endpoint** tanlangan: `GET /about` uchala bo'limni (`content`, `experience`, `toolbox`) bitta javobda qaytaradi. Sababi — uchala bo'lim ham bitta ekranda, bir vaqtda ko'rinadi, alohida so'rov qilish uchta loading holati va uchta round-trip degani bo'lardi. Admin panel yozilganda CRUD **alohida** endpointlarda bo'ladi (`/admin/experience`, `/admin/toolbox`) — `/about` esa faqat o'qish uchun read-model bo'lib qoladi.
+Yozish (admin) mutatsiyalari shu fayllarda yonma-yon turadi: `useCreate*` / `useUpdate*` / `useDelete*`, hammasi muvaffaqiyatdan keyin o'z kalitini `invalidate` qiladi.
+
+**`about` uchun bitta endpoint** tanlangan: `GET /about` uchala bo'limni (`content`, `experience`, `toolbox`) bitta javobda qaytaradi. Sababi — uchala bo'lim ham bitta ekranda, bir vaqtda ko'rinadi, alohida so'rov qilish uchta loading holati va uchta round-trip degani bo'lardi. CRUD esa **alohida** endpointlarda: `PATCH /api/about/content`, `POST|PATCH|DELETE /api/about/experience/:id`, xuddi shunday `/api/about/toolbox/:id`. `GET /api/about` faqat o'qish uchun read-model bo'lib qoladi.
 
 **`contact`** ham bitta obyekt qaytaradi va tarjimasiz — batafsil `STRUCTURE.md` da.
 
@@ -174,10 +192,15 @@ Kengaytirish kerak bo'lsa **faqat shu fayl** almashtiriladi — chaqiruvchi komp
 - `/blog/[slug]` — chrome'siz o'qish sahifasi, markdown
 - `/contact` — o'ngga harakatlanuvchi "Gaplashaylik" marquee, tavsif + vermilion CTA, kanallar setkasi
 
+**Admin panel — `/admin`, to'liq tayyor:**
+- Kirish: `/admin` ga kirilganda token bo'lmasa **shu sahifada** login formasi chiqadi (redirect yo'q), token localStorage'da. 401 kelsa token o'chadi va forma qaytadi
+- Bo'limlar: Proyekt (CRUD + rasm yuklash), Blog (CRUD + markdown editor), About (matn upsert, tajriba va toolbox CRUD), Kontakt (upsert)
+- Saqlangandan keyin: toast + bitta orqaga (ro'yxatga / dashboard'ga); about'da inline forma yopiladi
+- O'chirish har joyda **ikki bosqichli tasdiq** bilan
+- Admin matnlari faqat o'zbekcha, komponent ichida — `messages/*.json` da emas (admin bitta odam uchun)
+
 **Hali yo'q:**
-- Backend — hamma narsa `*.data.ts` dagi fake data
-- Admin panel — blog postlari o'sha yerda yoziladi (markdown editor)
-- `public/projects/` dagi rasmlar (`aurora-crm` dan boshqasida galereya bo'sh)
+- Server prefetch (`HydrationBoundary`) — SSR HTML'da hamon skeleton chiqadi
 
 ## Ma'lum kamchiliklar
 
@@ -190,6 +213,6 @@ Bular bilib turib qoldirilgan, tuzatish navbat bilan:
 5. `metadata` hali `"Create Next App"` — o'zgartirilmagan.
 6. `Locale` type **besh joyda** takrorlangan (`menu.data.ts`, `project.type.ts`, `about.type.ts`, `blog.type.ts`, `stats.data.ts`) — feature'lar bir-biridan import qilmasligi uchun. Kerak bo'lsa `shared/types/` ga chiqariladi.
 7. `constants.ts` da `EASE` bor, lekin ko'p komponent uni o'z ichida qayta e'lon qilgan.
-8. `about.data.ts` dagi loyihalar ro'yxati fake — haqiqiy CV emas.
+8. About'dagi tajriba ro'yxati hamon namunaviy — admin paneldan haqiqiy CV bilan almashtirilishi kerak.
 9. **Tipografiya to'liq moslashtirilmagan.** Dizaynda barcha tavsif paragraflari Archivo `600` og'irlikda; loyihada `font-body` tokeni qo'shilgan va **faqat contact** sahifasida qo'llangan. Hero, `/work`, `/blog` intro va about bio hamon `font-display` (Archivo Black) bilan, ya'ni dizayndan qalinroq.
-10. Blog postlarining detal sahifasi bor, lekin post **yozish** yo'li yo'q — admin panelgacha `blog.data.ts` qo'lda tahrirlanadi.
+10. Blog `theme` ro'yxati ikki joyda: `blog.type.ts` dagi `BLOG_THEMES` (kalitlar) va `messages/{uz,en}.json` (yorliqlar) — yangi mavzu qo'shsangiz ikkalasiga ham yozing, aks holda next-intl xato beradi.

@@ -1,8 +1,12 @@
-import { contact } from "./contact.data";
-import type { Contact } from "./contact.type";
+import { api } from "@/shared/api/client";
+import type { Contact, UpdateContactInput } from "./contact.type";
 
 export const contactApi = {
   async get(): Promise<Contact> {
-    return contact;
+    return api.get<Contact>("/api/contact");
+  },
+
+  async update(input: UpdateContactInput): Promise<Contact> {
+    return api.patch<Contact>("/api/contact", input);
   },
 };

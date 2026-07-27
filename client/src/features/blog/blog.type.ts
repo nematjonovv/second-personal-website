@@ -5,7 +5,8 @@ export type BlogTheme =
   | "typescript"
   | "postgres"
   | "frontend"
-  | "devops";
+  | "devops"
+  | string
 
 export type BlogPostContent = {
   title: string;
@@ -15,6 +16,21 @@ export type BlogPostContent = {
 export type BlogPost = {
   slug: string;
   theme: BlogTheme;
+  createdAt: string;
+  content: Record<Locale, BlogPostContent>;
+};
+
+export const BLOG_THEMES = [
+  "architecture",
+  "typescript",
+  "postgres",
+  "frontend",
+  "devops",
+] as const;
+
+export type BlogFormValues = {
+  slug: string;
+  theme: string;
   createdAt: string;
   content: Record<Locale, BlogPostContent>;
 };

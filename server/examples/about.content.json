@@ -1,0 +1,34 @@
+{
+  "content": {
+    "uz": {
+      "headline": {
+        "before": "Detallar ustida ",
+        "accent": "terlaydigan",
+        "after": " muhandis"
+      },
+      "bio": {
+        "primary": {
+          "before": "Men 6+ yillik tajribaga ega fullstack dasturchiman — noaniq g'oyalarni ishlaydigan mahsulotga aylantiraman. Butun stack'ni yaxshi ko'raman: ma'lumotni to'g'ri modellashtirish, toza API chegaralari chizish va oxirida interfeysni ",
+          "accent": "bemalol",
+          "after": " his qildirish."
+        },
+        "secondary": "Ishimning katta qismi TypeScript'da. Ishlash tezligi, foydalanish qulayligi va keyingi odam o'qiy oladigan kod men uchun muhim. Klaviaturadan tashqarida: mexanik klaviaturalar, uzun maqolalar va allaqachon ishlab turgan narsalarni shunchaki tushunish uchun qaytadan qurish."
+      }
+    },
+    "en": {
+      "headline": {
+        "before": "Engineer who ",
+        "accent": "sweats",
+        "after": " the details"
+      },
+      "bio": {
+        "primary": {
+          "before": "I'm a fullstack developer with 6+ years of turning fuzzy ideas into shipped software. I like the whole stack: modeling data properly, drawing clean API boundaries, and then making the interface feel ",
+          "accent": "effortless",
+          "after": "."
+        },
+        "secondary": "Most of my work lives in TypeScript. I care about performance budgets, accessible interfaces, and code that the next person can actually read. Off-keyboard: mechanical keyboards, long-form articles, and rebuilding things that already work just to understand them better."
+      }
+    }
+  }
+}

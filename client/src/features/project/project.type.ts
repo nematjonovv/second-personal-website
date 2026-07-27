@@ -23,3 +23,14 @@ export type Project = {
   liveUrl?: string;
   content: Record<Locale, ProjectContent>;
 };
+
+export type ProjectFormValues = {
+  slug: string;
+  title: string;
+  date: { month: number; year: number };
+  techStack: string[];
+  role: string[];
+  githubUrl: string;
+  liveUrl: string;
+  content: Record<Locale, ProjectContent>;
+};

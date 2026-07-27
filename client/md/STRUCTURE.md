@@ -1,6 +1,6 @@
 # Data structure
 
-Loyihadagi barcha data shakllari. Backend hali yo'q — bu type'lar kelajakdagi API javoblarining shartnomasi, `*.data.ts` esa ularning vaqtinchalik o'rnini bosuvchisi.
+Loyihadagi barcha data shakllari. Bu type'lar backend javoblarining shartnomasi — `../server` aynan shu shaklda qaytaradi. Fake `*.data.ts` fayllari o'chirilgan (`menu`, `stats`, `marquee` dan boshqa hammasi).
 
 ## Asosiy qoida — ikki qatlam
 
@@ -22,7 +22,7 @@ Backend **ikkala tilni bitta javobda** qaytaradi (`?locale=` emas). Shu sababli 
 ## Project
 
 `src/features/project/project.type.ts` — type'lar
-`src/features/project/project.data.ts` — fake data
+`src/features/project/project.api.ts` — endpointlar (`GET /api/projects`, CRUD)
 
 ```ts
 export type Locale = "uz" | "en";
@@ -62,7 +62,7 @@ export type Project = {
 | `date.year` | `number` | To'liq yil. |
 | `techStack` | `string[]` | Nomlar `src/shared/data/marque.data.ts` bilan bir xil yozilsin (`Next.js`, `PostgreSQL`, `Go`...) — keyinchalik filtr qilish uchun. |
 | `role` | `string[]` | Loyihadagi rollar. |
-| `gallery` | `string[]` | `public/` **ildiz sifatida xizmat qiladi**: `public/images/makon/cover.png` → `"/images/makon/cover.png"`. Yo'lda `/public` **bo'lmasligi kerak**. Alohida `cover` maydoni yo'q — kartochka uchun `gallery[0]`. |
+| `gallery` | `string[]` | Backend yo'llari: `"/uploads/projects/<uuid>.webp"`. Brauzerda ko'rsatishdan oldin `shared/api/imageUrl.ts` orqali backend manzili qo'shiladi. Alohida `cover` maydoni yo'q — kartochka uchun `gallery[0]`. |
 | `githubUrl` | `string?` | **Ixtiyoriy** — yopiq loyihalarda yo'q. |
 | `liveUrl` | `string?` | **Ixtiyoriy** — deploy qilinmagan loyihalarda yo'q. Batafsil sahifada `LIVE` belgisi shu maydon borligiga qarab chiqadi. |
 | `content` | `Record<Locale, ProjectContent>` | `uz` va `en` — ikkalasi ham majburiy. |
@@ -80,28 +80,19 @@ export type Project = {
 
 ### Yangi loyiha qo'shish
 
-1. `projects` massiviga **eng boshiga** qo'shing — massiv sanadan yangidan eskiga qarab tartiblangan, UI'da qo'shimcha sort yo'q.
-2. `slug` unikal ekanini tekshiring.
-3. `content.uz` va `content.en` ni **ikkalasini ham** to'ldiring — TypeScript birini tashlab ketishga yo'l qo'ymaydi, lekin bo'sh string yozib qo'yishdan saqlaydigan narsa yo'q.
-4. Rasmlarni `public/images/<nom>/` ga joylang, `gallery` da esa `/images/...` deb yozing.
+`/admin/projects` → **Yangi**. Tartib serverda (`year DESC, month DESC`), UI'da qo'shimcha sort yo'q. Slug bo'sh qoldirilsa sarlavhadan yasaladi; `content.uz` va `content.en` — ikkalasi ham majburiy; kamida bitta rasm shart (jpg/png/webp → webp'ga o'giriladi).
 
 ### Hozirgi holat
 
-Massivda **5 ta fake loyiha**: `aurora-crm`, `bozor-api`, `qadam`, `sahifa-cms`, `nuqta-analytics`.
+Yozuvlar DB'da — admin paneldan (`/admin/projects`) boshqariladi. `gallery` endi `public/` emas, backend yuklamalariga ishora qiladi.
 
-Ular ataylab har xil qilingan — UI'ni haqiqiy holatlarda sinash uchun:
-- `bozor-api` da faqat `githubUrl`, `sahifa-cms` da faqat `liveUrl`, qolganlarida ikkalasi ham
-- `gallery` uzunligi 3 tadan 5 tagacha
-- `role` da 1 tadan 2 tagacha element
-
-Rasmlar faqat `aurora-crm` da mavjud (`/images/makon/...`), qolganlarida yo'llar `/projects/<slug>/NN.png` ga ishora qiladi, lekin fayllar yo'q — galereya bo'sh quti bo'lib chiqadi.
 
 ---
 
 ## Blog
 
 `src/features/blog/blog.type.ts` — type'lar
-`src/features/blog/blog.data.ts` — fake data
+`src/features/blog/blog.api.ts` — endpointlar (`GET /api/blog`, CRUD)
 `src/features/blog/blog.util.ts` — `formatMonthYear()`
 
 ```ts
@@ -144,23 +135,18 @@ export type BlogPost = {
 
 ### Yangi post qo'shish
 
-1. `blogPosts` massiviga **eng boshiga** qo'shing — massiv yangidan eskiga tartiblangan, UI'da qo'shimcha sort yo'q.
-2. `slug` unikal ekanini tekshiring.
-3. `content.uz` va `content.en` — **ikkalasi ham** to'liq matn bilan.
-4. `theme` uchun yorliq `messages/{uz,en}.json` da borligiga ishonch hosil qiling.
+`/admin/blog` → **Yangi**. Tartib serverda (`createdAt DESC`). Mavzu ro'yxatdan tanlanadi (`BLOG_THEMES`), sana bo'sh qoldirilsa hozirgi vaqt yoziladi, slug bo'sh qoldirilsa o'zbekcha sarlavhadan yasaladi.
 
 ### Hozirgi holat
 
-Massivda **5 ta fake post**: `mikroservislarga-shoshilmang`, `typescript-dizayn-vositasi`, `postgres-imkoniyatlari`, `skeleton-emas-kontent`, `bitta-vps-yetadi`. Har birida sarlavha, paragraf, ro'yxat va kod bloklari bor — renderer'ni sinash uchun.
-
-Postlar admin panel yozilgunicha shu faylda qo'lda tahrirlanadi.
+Postlar DB'da — admin paneldan (`/admin/blog`) yoziladi. Editor chap tomonda xom markdown, o'ngda saytdagi aynan shu `Markdown.tsx` bilan preview ko'rsatadi.
 
 ---
 
 ## About
 
 `src/features/about/about.type.ts` — type'lar
-`src/features/about/about.data.ts` — fake data
+`src/features/about/about.api.ts` — endpointlar (`GET /api/about` + uch qism CRUD)
 
 Bitta `GET /about` javobi uchala bo'limni qaytaradi.
 
@@ -234,7 +220,7 @@ UI'da 4 ustunli quti (`md:grid-cols-4`), ajratgichlar `gap-0.5` + ota fon usuli 
 ## Contact
 
 `src/features/contact/contact.type.ts` — type'lar
-`src/features/contact/contact.data.ts` — fake data
+`src/features/contact/contact.api.ts` — endpointlar (`GET|PATCH /api/contact`)
 `src/features/contact/contact.util.ts` — `formatPhone()`, `toChannels()`
 
 Bitta `GET /contact` javobi — **butunlay tarjimasiz**, `content` qatlami yo'q.

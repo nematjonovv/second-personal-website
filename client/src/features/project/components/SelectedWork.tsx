@@ -9,8 +9,6 @@ import { useProjects } from "../project.hook";
 import ProjectCard from "./ProjectCard";
 import { CARD_VARIANTS, EASE, VISIBLE_COUNT } from "@/shared/contstans/constants";
 
-
-
 export default function SelectedWork() {
   const t = useTranslations("HomePage.selectedWork");
   const { data, isPending } = useProjects();
@@ -57,7 +55,6 @@ export default function SelectedWork() {
             className="mt-10 border-t-2 border-ink"
             initial="hidden"
             whileInView="visible"
-            // once: bir marta ochiladi, orqaga scroll qilganda qaytadan o'ynamaydi
             viewport={{ once: true, amount: 0.2 }}
             variants={{
               visible: { transition: { staggerChildren: 0.06, delayChildren: 0.08 } },

@@ -2,13 +2,11 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { motion, useMotionValue, useAnimationFrame, animate } from "framer-motion";
-import { marqueeItems } from "@/messages/shared/data/marque.data";
 import { cn } from "@/lib/utils";
+import { marqueeItems } from "@/shared/data/marque.data";
 
 const BASE_SPEED = 80;
 
-// accent — bosh sahifadagi vermilion tasma (chegaralar bilan).
-// plain — fonsiz, ink rangdagi katta sarlavha (contact sahifasi).
 type Variant = "accent" | "plain";
 
 export default function Marquee({
@@ -32,8 +30,6 @@ export default function Marquee({
     const measure = () => {
       if (trackRef.current) {
         setWidth.current = trackRef.current.scrollWidth / 2;
-        // O'ngga harakatda lenta bitta to'plam chapga surilgan holda
-        // boshlanadi — aks holda birinchi soniyada chapda bo'shliq ochiladi
         if (reverse && x.get() === 0) x.set(-setWidth.current);
       }
     };

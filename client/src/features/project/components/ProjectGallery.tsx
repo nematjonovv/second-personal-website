@@ -7,7 +7,6 @@ import ViewImage from "@/components/ViewImage";
 import { cn } from "@/lib/utils";
 import { AUTOPLAY_MS, EASE } from "@/shared/contstans/constants";
 
-
 export default function ProjectGallery({
   images,
   title,
@@ -72,8 +71,6 @@ export default function ProjectGallery({
               )}
             >
               {i === active && (
-                // Aktiv nuqta progress bo'lib to'ladi — keyingi rasmgacha qancha
-                // qolganini ko'rsatadi; pauza vaqtida darhol to'lgan holatda turadi
                 <motion.span
                   key={`${active}-${paused}`}
                   className="block h-full w-full origin-left bg-accent"

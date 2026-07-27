@@ -39,8 +39,6 @@ export default function BlogList() {
       ) : (
         <ul className="border-t-2 border-ink">
           {posts.map((post) => (
-            // Qatorlar bir ekranga sig'maydi — shuning uchun stagger emas,
-            // har bir qator o'zi ko'ringanda ochiladi
             <motion.li
               key={post.slug}
               initial={{ opacity: 0, y: 24 }}

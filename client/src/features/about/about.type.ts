@@ -37,3 +37,7 @@ export type About = {
   experience: Experience[];
   toolbox: ToolboxGroup[];
 };
+
+export type ExperienceFormValues = Experience;
+
+export type ToolboxFormValues = ToolboxGroup & { position?: number };

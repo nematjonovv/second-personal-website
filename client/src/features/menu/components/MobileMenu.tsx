@@ -66,8 +66,6 @@ export default function MobileMenu() {
         </span>
       </button>
 
-      {/* backdrop body'ga portal qilinadi — aks holda header'ning stacking
-          context'i ichida qolib, header'ni ham qoraytiradi */}
       {typeof document !== "undefined" &&
         createPortal(
           <AnimatePresence>

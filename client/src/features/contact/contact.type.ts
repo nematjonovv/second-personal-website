@@ -6,6 +6,8 @@ export type Contact = {
   phoneNumber: string;
 };
 
+export type UpdateContactInput = Partial<Contact>;
+
 export type ContactChannelId =
   | "email"
   | "github"

@@ -1,0 +1,100 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  month     Int
+  year      Int
+  techStack String[]
+  role      String[]
+  gallery   String[]
+  githubUrl String?
+  liveUrl   String?
+  uz        Json
+  en        Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model AboutContent {
+  id        String   @id @default("about")
+  uz        Json
+  en        Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("about_content")
+}
+
+model Experience {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  company   String
+  fromYear  Int
+  toYear    Int?
+  uz        Json
+  en        Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("experiences")
+}
+
+model ToolboxGroup {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  position  Int
+  labelUz   String
+  labelEn   String
+  items     String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("toolbox_groups")
+}
+
+model BlogPost {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  theme     String
+  uz        Json
+  en        Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+model Contact {
+  id          String   @id @default("contact")
+  email       String
+  github      String
+  linkedin    String
+  telegram    String
+  phoneNumber String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("contacts")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}

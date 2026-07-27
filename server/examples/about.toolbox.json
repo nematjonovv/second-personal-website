@@ -1,0 +1,22 @@
+[
+  {
+    "id": "frontend",
+    "label": { "uz": "Frontend", "en": "Frontend" },
+    "items": ["React", "Next.js", "TypeScript", "Svelte", "Tailwind"]
+  },
+  {
+    "id": "backend",
+    "label": { "uz": "Backend", "en": "Backend" },
+    "items": ["Node", "Go", "tRPC", "GraphQL", "REST"]
+  },
+  {
+    "id": "data",
+    "label": { "uz": "Ma'lumot", "en": "Data" },
+    "items": ["Postgres", "Redis", "Prisma", "SQLite"]
+  },
+  {
+    "id": "infra",
+    "label": { "uz": "Infratuzilma", "en": "Infra" },
+    "items": ["Docker", "AWS", "CI/CD", "Terraform"]
+  }
+]

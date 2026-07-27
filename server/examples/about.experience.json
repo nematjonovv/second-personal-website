@@ -1,0 +1,47 @@
+[
+  {
+    "id": "freelance",
+    "company": "Freelance",
+    "period": { "from": 2023, "to": null },
+    "content": {
+      "uz": {
+        "role": "Senior Fullstack Muhandis",
+        "summary": "Startaplar uchun mahsulotlarni boshdan oxirigacha quraman — arxitektura, yetkazib berish va orasidagi noqulay qismlar."
+      },
+      "en": {
+        "role": "Senior Fullstack Engineer",
+        "summary": "Building products end-to-end for startups — architecture, delivery, and the awkward parts in between."
+      }
+    }
+  },
+  {
+    "id": "payme",
+    "company": "Payme",
+    "period": { "from": 2021, "to": 2023 },
+    "content": {
+      "uz": {
+        "role": "Fullstack Muhandis",
+        "summary": "Oyiga millionlab tranzaksiyaga xizmat qiladigan to'lov va solishtirish oqimlariga javobgar edim."
+      },
+      "en": {
+        "role": "Fullstack Engineer",
+        "summary": "Owned checkout and reconciliation flows serving millions of transactions a month."
+      }
+    }
+  },
+  {
+    "id": "uzum",
+    "company": "Uzum",
+    "period": { "from": 2019, "to": 2021 },
+    "content": {
+      "uz": {
+        "role": "Frontend Dasturchi",
+        "summary": "Dizayn tizimini qurdim va do'kon interfeysini tezlik hamda qulaylik uchun qaytadan yozdim."
+      },
+      "en": {
+        "role": "Frontend Developer",
+        "summary": "Built the design system and rebuilt the storefront for speed and accessibility."
+      }
+    }
+  }
+]
