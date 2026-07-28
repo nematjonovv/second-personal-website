@@ -7,16 +7,16 @@ export type Stat = {
 
 export const stats: Stat[] = [
   {
-    value: "6+",
+    value: "1+",
     label: { uz: "Yillik tajriba", en: "Years shipping" },
   },
   {
-    value: "40+",
+    value: "8+",
     label: { uz: "Yakunlangan loyiha", en: "Projects delivered" },
   },
   {
-    value: "12",
-    label: { uz: "Til va runtime", en: "Languages & runtimes" },
+    value: "3+",
+    label: { uz: "Real mijozlar", en: "Real clients" },
   },
   {
     value: "∞",

@@ -5,7 +5,7 @@
         "available": "Available for work",
         "role": "Fullstack Developer",
         "location": "Tashkent, UZ",
-        "since": "Est. 2019"
+        "since": ""
       },
       "description": "I build <accent>fast, opinionated</accent> fullstack products — from the database schema all the way to the last pixel. React on the front, Node & Postgres on the back, obsession everywhere in between."
     },
@@ -27,13 +27,13 @@
   "WorkPage": {
     "section": "Portfolio",
     "title": "Work",
-    "description": "A running log of things I've shipped. Selected for the parts that were hard, not just the parts that look nice.",
+    "description": "Everything I've built so far.",
     "role": "Role"
   },
   "BlogPage": {
     "section": "Writing",
     "title": "Blog",
-    "description": "Notes on building software — architecture decisions, footguns I've stepped on, and the occasional rant.",
+    "description": "I openly write down what I'm learning - architectural decisions, mistakes I've made along the way, and sometimes just thoughts.",
     "empty": "Nothing here yet. Soon.",
     "back": "All posts",
     "notFound": "Post not found",
@@ -48,7 +48,7 @@
   "ContactPage": {
     "section": "Contact",
     "title": "Let's talk",
-    "description": "Got a product to build, a team to join, or just want to argue about <accent>tabs vs spaces</accent>? My inbox is open.",
+    "description": "Got a product to build, a team to join, or just want to argue about <accent>light & dark</accent> mode? My inbox is open.",
     "channels": {
       "email": "Email",
       "github": "GitHub",

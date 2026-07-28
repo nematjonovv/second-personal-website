@@ -2,10 +2,10 @@
   "HomePage": {
     "hero": {
       "HeroMeta": {
-        "available": "Ish qidiryapman",
+        "available": "Ish takliflariga ochiq",
         "role": "Fullstack dasturchi",
         "location": "Toshkent, O'Z",
-        "since": "2019-yildan beri"
+        "since": ""
       },
       "description": "Men <accent>tez, prinsipial</accent> fullstack mahsulotlar yarataman — ma'lumotlar bazasi sxemasidan tortib eng oxirgi pikselgacha. Frontda React, backda Node & Postgres, orasidagi hamma joyda esa obsessiya."
     },
@@ -26,14 +26,14 @@
   },
   "WorkPage": {
     "section": "Portfolio",
-    "title": "Ishlar",
-    "description": "Yakunlagan ishlarim yilnomasi. Chiroyli ko'ringan qismlari uchun emas, qiyin bo'lgan qismlari uchun tanlangan.",
+    "title": "Loyihalar",
+    "description": "Shu vaqtgacha qurgan ishlarim.",
     "role": "Rol"
   },
   "BlogPage": {
     "section": "Yozuvlar",
     "title": "Blog",
-    "description": "Dasturiy ta'minot qurish haqidagi qaydlar — arxitektura qarorlari, o'zim bosgan minalar va ba'zan shunchaki dod.",
+    "description": "O'rganayotganlarimni ochiq yozib boraman - arxitektura qarorlari, yo'lda uchragan xatolar va ba'zan shunchaki fikrlar",
     "empty": "Hozircha bo'sh. Tez orada.",
     "back": "Barcha yozuvlar",
     "notFound": "Bunday yozuv topilmadi",
@@ -47,8 +47,8 @@
   },
   "ContactPage": {
     "section": "Aloqa",
-    "title": "Gaplashaylik",
-    "description": "Quriladigan mahsulotingiz bormi, jamoaga odam kerakmi, yoki shunchaki <accent>tab yoki bo'shliq</accent> haqida bahslashmoqchimisiz? Pochtam ochiq.",
+    "title": "Gaplashamiz",
+    "description": "Quriladigan mahsulotingiz bormi, jamoaga odam kerakmi, yoki shunchaki <accent>yorug' & qorong'u</accent>rejim haqida bahslashmoqchimisiz? Pochtam ochiq.",
     "channels": {
       "email": "Email",
       "github": "GitHub",
