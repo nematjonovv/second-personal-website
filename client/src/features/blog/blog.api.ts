@@ -33,7 +33,7 @@ export const blogApi = {
 };
 
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.API_BASE_URL;
 
 export async function getAllPostsServer(): Promise<BlogPost[]> {
   const res = await fetch(`${API_BASE_URL}/api/blog`, {

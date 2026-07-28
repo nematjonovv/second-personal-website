@@ -29,7 +29,7 @@ class BlogController {
     try {
       const post = await blogService.create(req.body);
       res.status(201).json({ success: true, message: "Post yaratildi", data: post });
-      revalidateClient(["/blog", `/blog/${slug}`]);
+      revalidateClient(["/blog", `/blog/${post.slug}`]);
     } catch (error) {
       next(error);
     }
