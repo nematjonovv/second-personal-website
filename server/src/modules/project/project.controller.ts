@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { projectService } from "./project.service";
+import { revalidateClient } from "../../shared/revalidate";
 
 type Req = Parameters<RequestHandler>[0];
 
@@ -29,6 +30,8 @@ class ProjectController {
     try {
       const project = await projectService.create(req.body, filesOf(req));
       res.status(201).json({ success: true, message: "Proyekt yaratildi", data: project });
+
+      revalidateClient(project.slug);
     } catch (error) {
       next(error);
     }

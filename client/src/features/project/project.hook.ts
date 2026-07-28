@@ -30,7 +30,13 @@ export function useCreateProject() {
   return useMutation({
     mutationFn: ({ values, files }: { values: ProjectFormValues; files: File[] }) =>
       projectApi.create(values, files),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: projectKeys.all }),
+        await fetch("/api/revalidate", {
+          method: "POST",
+          headers: { "x-revalidate-secret": process.env.NEXT_PUBLIC_REVALIDATE_SECRET! },
+        });
+    }
   });
 }
 
