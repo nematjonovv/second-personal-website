@@ -1,4 +1,4 @@
-export async function revalidateClient(slug?: string) {
+export async function revalidateClient(paths: string[]) {
   try {
     await fetch(`${process.env.CLIENT_URL}/api/revalidate`, {
       method: "POST",
@@ -6,7 +6,7 @@ export async function revalidateClient(slug?: string) {
         "x-revalidate-secret": process.env.REVALIDATE_SECRET!,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ slug }),
+      body: JSON.stringify({ paths }),
     });
   } catch (err) {
     console.error("Revalidate failed:", err);

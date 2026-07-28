@@ -31,7 +31,7 @@ class ProjectController {
       const project = await projectService.create(req.body, filesOf(req));
       res.status(201).json({ success: true, message: "Proyekt yaratildi", data: project });
 
-      revalidateClient(project.slug);
+      revalidateClient(["/", "/work", `/work/${project.slug}`]);
     } catch (error) {
       next(error);
     }

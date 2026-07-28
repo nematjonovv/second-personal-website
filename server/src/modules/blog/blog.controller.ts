@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { blogService } from "./blog.service";
+import { revalidateClient } from "../../shared/revalidate";
 
 type Req = Parameters<RequestHandler>[0];
 
@@ -28,6 +29,7 @@ class BlogController {
     try {
       const post = await blogService.create(req.body);
       res.status(201).json({ success: true, message: "Post yaratildi", data: post });
+      revalidateClient(["/blog", `/blog/${slug}`]);
     } catch (error) {
       next(error);
     }

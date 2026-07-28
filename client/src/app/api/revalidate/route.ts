@@ -9,13 +9,15 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const slug = body?.slug as string | undefined;
+  const paths = body?.paths as string[] | undefined;
 
-  revalidatePath("/work");
-  revalidatePath("/");
-  if (slug) {
-    revalidatePath(`/work/${slug}`);
+  if (!paths || paths.length === 0) {
+    return NextResponse.json({ message: "No paths provided" }, { status: 400 });
   }
 
-  return NextResponse.json({ revalidated: true });
+  for (const path of paths) {
+    revalidatePath(path);
+  }
+
+  return NextResponse.json({ revalidated: true, paths });
 }

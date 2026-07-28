@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { aboutService } from "./about.service";
+import { revalidateClient } from "../../shared/revalidate";
 
 type Req = Parameters<RequestHandler>[0];
 
@@ -28,6 +29,7 @@ class AboutController {
     try {
       const experience = await aboutService.createExperience(req.body);
       res.status(201).json({ success: true, message: "Tajriba qo'shildi", data: experience });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
