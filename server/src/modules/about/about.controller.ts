@@ -20,6 +20,7 @@ class AboutController {
     try {
       const content = await aboutService.updateContent(req.body);
       res.status(200).json({ success: true, message: "About matni yangilandi", data: content });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
@@ -39,6 +40,7 @@ class AboutController {
     try {
       const experience = await aboutService.updateExperience(keyOf(req), req.body);
       res.status(200).json({ success: true, message: "Tajriba yangilandi", data: experience });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
@@ -48,6 +50,7 @@ class AboutController {
     try {
       await aboutService.removeExperience(keyOf(req));
       res.status(200).json({ success: true, message: "Tajriba o'chirildi", data: null });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
@@ -57,6 +60,7 @@ class AboutController {
     try {
       const group = await aboutService.createToolboxGroup(req.body);
       res.status(201).json({ success: true, message: "Toolbox guruhi qo'shildi", data: group });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
@@ -66,6 +70,7 @@ class AboutController {
     try {
       const group = await aboutService.updateToolboxGroup(keyOf(req), req.body);
       res.status(200).json({ success: true, message: "Toolbox guruhi yangilandi", data: group });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
@@ -75,6 +80,7 @@ class AboutController {
     try {
       await aboutService.removeToolboxGroup(keyOf(req));
       res.status(200).json({ success: true, message: "Toolbox guruhi o'chirildi", data: null });
+      revalidateClient(["/about"]);
     } catch (error) {
       next(error);
     }
