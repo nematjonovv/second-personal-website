@@ -8,10 +8,11 @@ export const aboutKeys = {
   all: ["about"] as const,
 };
 
-export function useAbout() {
+export function useAbout(options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: aboutKeys.all,
     queryFn: () => aboutApi.get(),
+    enabled: options?.enabled ?? true,
   });
 }
 

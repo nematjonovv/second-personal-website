@@ -1,25 +1,32 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 import { motion, useMotionValue, useAnimationFrame, animate } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { marqueeItems } from "@/shared/data/marque.data";
+import { useAbout } from "@/features/about/about.hook";
 
 const BASE_SPEED = 80;
 
 type Variant = "accent" | "plain";
 
 export default function Marquee({
-  items = marqueeItems,
+  items,
   variant = "accent",
-  separator = "✦",
+  separator,
   direction = "left",
 }: {
   items?: string[];
   variant?: Variant;
-  separator?: string;
+  separator?: ReactNode;
   direction?: "left" | "right";
 }) {
+  const { data } = useAbout({ enabled: items === undefined });
+  const stack = useMemo(
+    () => data?.toolbox.flatMap((group) => group.items) ?? [],
+    [data]
+  );
+  const list = items ?? stack;
+
   const reverse = direction === "right";
   const x = useMotionValue(0);
   const speed = useMotionValue(BASE_SPEED);
@@ -40,7 +47,7 @@ export default function Marquee({
       clearTimeout(id);
       window.removeEventListener("resize", measure);
     };
-  }, [items, reverse]);
+  }, [list, reverse]);
 
   useAnimationFrame((_, delta) => {
     const moveBy = (speed.get() * delta) / 1000;
@@ -66,8 +73,25 @@ export default function Marquee({
     animate(speed, BASE_SPEED, { duration: 1.1, ease: "easeIn" });
   };
 
-  const doubled = [...items, ...items];
   const isAccent = variant === "accent";
+  const doubled = [...list, ...list];
+
+  const separatorNode = separator ?? (
+    <span className="font-mono font-bold opacity-70">//</span>
+  );
+
+  if (list.length === 0) {
+    return (
+      <div
+        className={cn(
+          "w-full",
+          isAccent ? "border-y-2 border-ink bg-accent py-3" : "py-2"
+        )}
+        style={{ height: isAccent ? "clamp(3.5rem, 7vw, 5.5rem)" : undefined }}
+        aria-hidden
+      />
+    );
+  }
 
   return (
     <div
@@ -80,12 +104,12 @@ export default function Marquee({
     >
       <motion.div ref={trackRef} style={{ x }} className="flex w-max">
         {doubled.map((item, i) => (
-          <div key={i} className="flex items-center">
+          <div key={`${item}-${i}`} className="flex items-center">
             <span
               className={cn(
                 "font-display",
                 isAccent
-                  ? "px-6 text-[clamp(2rem,5vw,4rem)] tracking-wide text-paper"
+                  ? "px-6 text-[clamp(2rem,5vw,4rem)] uppercase tracking-wide text-paper"
                   : "px-5 text-[clamp(3rem,13vw,12rem)] uppercase tracking-tight text-ink"
               )}
               style={isAccent ? undefined : { lineHeight: 0.9, letterSpacing: "-0.04em" }}
@@ -94,13 +118,14 @@ export default function Marquee({
             </span>
             <span
               className={cn(
+                "flex items-center",
                 isAccent
                   ? "text-[clamp(1.25rem,3vw,2.5rem)] text-paper"
                   : "text-[clamp(2rem,8vw,6rem)] text-ink"
               )}
               aria-hidden
             >
-              {separator}
+              {separatorNode}
             </span>
           </div>
         ))}
