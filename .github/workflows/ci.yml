@@ -33,6 +33,10 @@ jobs:
 
       - name: Build tekshiruvi
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: https://nematjonovx.uz
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
 
   server:
     runs-on: ubuntu-latest
