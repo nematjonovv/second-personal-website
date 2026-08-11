@@ -1,0 +1,46 @@
+name: Portfolio CD
+
+on:
+  workflow_run:
+    workflows: ["Portfolio CI"]
+    types:
+      - completed
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Serverga ulanish va deploy qilish
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            cd /var/www/second-portfolio/second-personal-website
+
+            echo "==> Kodni yangilash"
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "==> Client build"
+            cd client
+            npm ci
+            npm run build
+
+            echo "==> Server build"
+            cd ../server
+            npm ci
+            npx prisma generate
+            npx prisma migrate deploy
+            npm run build
+
+            echo "==> PM2 restart"
+            pm2 restart portfolio-web
+            pm2 restart portfolio-api
+            pm2 save
