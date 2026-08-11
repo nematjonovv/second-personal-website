@@ -47,7 +47,7 @@ export default function Marquee({
       clearTimeout(id);
       window.removeEventListener("resize", measure);
     };
-  }, [list, reverse]);
+  }, [list, reverse, x]);
 
   useAnimationFrame((_, delta) => {
     const moveBy = (speed.get() * delta) / 1000;
@@ -77,7 +77,7 @@ export default function Marquee({
   const doubled = [...list, ...list];
 
   const separatorNode = separator ?? (
-    <span className="font-mono font-bold opacity-70">//</span>
+    <span className="font-mono font-bold opacity-70">{"//"}</span>
   );
 
   if (list.length === 0) {
