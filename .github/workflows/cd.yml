@@ -22,25 +22,17 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-            cd /var/www/second-portfolio/second-personal-website
-
-            echo "==> Kodni yangilash"
+            cd /var/www/portfolio
             git fetch origin main
             git reset --hard origin/main
-
-            echo "==> Client build"
             cd client
             npm ci
             npm run build
-
-            echo "==> Server build"
             cd ../server
             npm ci
             npx prisma generate
             npx prisma migrate deploy
             npm run build
-
-            echo "==> PM2 restart"
-            pm2 restart portfolio-web
-            pm2 restart portfolio-api
+            pm2 restart portfolio-client
+            pm2 restart portfolio-server
             pm2 save
