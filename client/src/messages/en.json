@@ -75,9 +75,9 @@
     "notFound": "Project not found"
   },
   "RootMeta": {
-    "title": "Hikmatillo Nematjonov — Frontend Developer",
-    "description": "Fullstack developer specializing in frontend. I build modern web applications with React, Next.js, and TypeScript.",
-    "keywords": "Hikmatillo Nematjonov,frontend developer,React developer,Next.js,fullstack developer,web developer,portfolio"
+    "title": "Hikmatillo Nematjonov — Fullstack Developer",
+    "description": "I build modern web applications with Next.js, Node.js, and TypeScript.",
+    "keywords": "Hikmatillo Nematjonov,Fullstack developer,React developer,Next.js,fullstack developer,web developer,portfolio"
   },
   "BlogMeta": {
     "title": "Blog",
