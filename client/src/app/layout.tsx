@@ -5,6 +5,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/shared/providers/QueryProvider";
+import PersonSchema from "@/components/PersonSchema";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-display",
@@ -88,7 +89,6 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -111,6 +111,7 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-paper">
+        <PersonSchema />
         <QueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
