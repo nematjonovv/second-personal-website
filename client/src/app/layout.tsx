@@ -96,7 +96,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
-
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html
       lang={locale}
@@ -118,8 +118,8 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </QueryProvider>
       </body>
-      {process.env.NODE_ENV === 'production' && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      {process.env.NODE_ENV === 'production' && gaId && (
+        <GoogleAnalytics gaId={gaId} />
       )}
     </html>
   );
