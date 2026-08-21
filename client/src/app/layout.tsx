@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/shared/providers/QueryProvider";
 import PersonSchema from "@/components/PersonSchema";
-
+import { GoogleAnalytics } from '@next/third-parties/google';
 const archivoBlack = Archivo_Black({
   variable: "--font-display",
   subsets: ["latin"],
@@ -118,6 +118,9 @@ export default async function RootLayout({
           </NextIntlClientProvider>
         </QueryProvider>
       </body>
+      {process.env.NODE_ENV === 'production' && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
